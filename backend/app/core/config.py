@@ -135,6 +135,14 @@ class Settings(BaseSettings):
     def CORS_ORIGINS(self) -> List[str]:
         return [self.FRONTEND_URL, "http://localhost:3000", "http://localhost:5173"]
 
+    # Comma-separated. Vercel's own domains are included so the deployed
+    # backend answers on its *.vercel.app URL as well as any custom domain.
+    ALLOWED_HOSTS: str = "salonsaas.com,*.salonsaas.com,*.vercel.app"
+
+    @property
+    def ALLOWED_HOSTS_LIST(self) -> List[str]:
+        return [h.strip() for h in self.ALLOWED_HOSTS.split(",") if h.strip()]
+
     class Config:
         env_file = ".env"
         case_sensitive = True

@@ -91,7 +91,7 @@ app.add_middleware(
 
 # Trusted hosts (security hardening in production)
 if not settings.APP_DEBUG:
-    app.add_middleware(TrustedHostMiddleware, allowed_hosts=["salonsaas.com", "*.salonsaas.com"])
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.ALLOWED_HOSTS_LIST)
 
 
 @app.middleware("http")
