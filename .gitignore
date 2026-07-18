@@ -9,6 +9,8 @@ __pycache__/
 # Environment
 .env
 .env.*
+!.env.example
+!**/.env.example
 
 # Logs
 *.log
@@ -23,3 +25,5 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+.vercel
+.env*

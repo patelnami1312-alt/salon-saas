@@ -17,6 +17,11 @@ sync_engine = create_engine(
 )
 
 # Async engine (for FastAPI endpoints)
+_async_connect_args = {}
+if settings.DB_PGBOUNCER:
+    _async_connect_args["statement_cache_size"] = 0
+    _async_connect_args["prepared_statement_cache_size"] = 0
+
 async_engine = create_async_engine(
     settings.ASYNC_DATABASE_URL,
     pool_size=settings.DB_POOL_SIZE,
@@ -24,6 +29,7 @@ async_engine = create_async_engine(
     pool_pre_ping=True,
     pool_recycle=3600,
     echo=settings.APP_DEBUG,
+    connect_args=_async_connect_args,
 )
 
 SyncSessionLocal = sessionmaker(bind=sync_engine, autocommit=False, autoflush=False)

@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings
 from typing import List
 from urllib.parse import quote_plus
+import os
 import secrets
 
 
@@ -24,6 +25,23 @@ class Settings(BaseSettings):
     DB_PASSWORD: str = "postgres"
     DB_POOL_SIZE: int = 20
     DB_MAX_OVERFLOW: int = 10
+    DB_SSL_REQUIRE: bool = False  # set True for Supabase / other hosted Postgres
+    # True when connecting through Supabase's pgbouncer transaction-mode pooler
+    # (port 6543). Disables asyncpg's prepared-statement cache, which pgbouncer
+    # transaction mode does not support (causes "prepared statement already exists").
+    DB_PGBOUNCER: bool = False
+
+    # Set automatically by Vercel on every deployment — used to skip startup
+    # work that doesn't make sense in a stateless serverless function
+    # (in-process scheduler, WebSocket backplane, dev-only seeding).
+    @property
+    def IS_SERVERLESS(self) -> bool:
+        return os.environ.get("VERCEL") == "1"
+
+    # Vercel sends this as `Authorization: Bearer <CRON_SECRET>` on cron-triggered
+    # requests (see https://vercel.com/docs/cron-jobs/manage-cron-jobs#securing-cron-jobs).
+    # Required in production so the cron endpoint can't be triggered by anyone else.
+    CRON_SECRET: str = ""
 
     # Redis
     REDIS_HOST: str = "localhost"
@@ -94,12 +112,18 @@ class Settings(BaseSettings):
     @property
     def DATABASE_URL(self) -> str:
         pwd = quote_plus(self.DB_PASSWORD)
-        return f"postgresql+psycopg2://{self.DB_USER}:{pwd}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        url = f"postgresql+psycopg2://{self.DB_USER}:{pwd}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        if self.DB_SSL_REQUIRE:
+            url += "?sslmode=require"
+        return url
 
     @property
     def ASYNC_DATABASE_URL(self) -> str:
         pwd = quote_plus(self.DB_PASSWORD)
-        return f"postgresql+asyncpg://{self.DB_USER}:{pwd}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        url = f"postgresql+asyncpg://{self.DB_USER}:{pwd}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        if self.DB_SSL_REQUIRE:
+            url += "?ssl=require"
+        return url
 
     @property
     def REDIS_URL(self) -> str:
@@ -110,6 +134,14 @@ class Settings(BaseSettings):
     @property
     def CORS_ORIGINS(self) -> List[str]:
         return [self.FRONTEND_URL, "http://localhost:3000", "http://localhost:5173"]
+
+    # Comma-separated. Vercel's own domains are included so the deployed
+    # backend answers on its *.vercel.app URL as well as any custom domain.
+    ALLOWED_HOSTS: str = "salonsaas.com,*.salonsaas.com,*.vercel.app"
+
+    @property
+    def ALLOWED_HOSTS_LIST(self) -> List[str]:
+        return [h.strip() for h in self.ALLOWED_HOSTS.split(",") if h.strip()]
 
     class Config:
         env_file = ".env"
