@@ -3,7 +3,7 @@ from app.api.v1 import (
     auth, customers, staff, appointments, checkins, billing, inventory,
     reports, notifications, services, salon,
     commissions, memberships, gift_cards, booking, ai, customer_portal,
-    super_admin, payroll, packages, waitlist, webhooks,
+    super_admin, payroll, packages, waitlist, webhooks, cron,
 )
 
 api_router = APIRouter(prefix="/api/v1")
@@ -30,3 +30,4 @@ api_router.include_router(payroll.router)
 api_router.include_router(packages.router)
 api_router.include_router(waitlist.router)
 api_router.include_router(webhooks.router)
+api_router.include_router(cron.router)

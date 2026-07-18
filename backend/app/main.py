@@ -28,19 +28,29 @@ async def lifespan(app: FastAPI):
     from app.core.ws_manager import appointment_sync
 
     logger.info("Starting SalonSaaS API...")
-    await init_db()
-    await seed_database()
-    redis = await get_redis()   # optional — warns and continues if Redis unavailable
-    setup_scheduler()
 
-    # Start Redis backplane for multi-worker WebSocket fan-out
+    # On Vercel there's no long-running process between requests, so the
+    # in-process scheduler, WebSocket backplane, and startup seeding either
+    # can't function or would re-run on every cold start. Schema/data setup
+    # runs once via `alembic upgrade head` / scripts.seed in CI/deploy instead,
+    # and the scheduled jobs move to Vercel Cron (see app/api/v1/cron.py).
+    if not settings.IS_SERVERLESS:
+        await init_db()
+        await seed_database()
+
+    redis = await get_redis()   # optional — warns and continues if Redis unavailable
+
     backplane_task = None
-    if redis:
-        backplane_task = asyncio.create_task(
-            appointment_sync.start_backplane(redis),
-            name="ws_backplane",
-        )
-        logger.info("WS backplane task started")
+    if not settings.IS_SERVERLESS:
+        setup_scheduler()
+
+        # Start Redis backplane for multi-worker WebSocket fan-out
+        if redis:
+            backplane_task = asyncio.create_task(
+                appointment_sync.start_backplane(redis),
+                name="ws_backplane",
+            )
+            logger.info("WS backplane task started")
 
     logger.info("SalonSaaS API started successfully")
     yield
@@ -53,7 +63,8 @@ async def lifespan(app: FastAPI):
         except asyncio.CancelledError:
             pass
     await close_redis()
-    shutdown_scheduler()
+    if not settings.IS_SERVERLESS:
+        shutdown_scheduler()
 
 
 app = FastAPI(
