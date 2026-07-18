@@ -19,7 +19,11 @@ from app.scripts.seed import seed_database
 # Configure loguru
 logger.remove()
 logger.add(sys.stdout, format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {name}:{line} | {message}", level="INFO")
-logger.add("logs/salon_saas_{time:YYYY-MM-DD}.log", rotation="1 day", retention="30 days", level="DEBUG")
+if not settings.IS_SERVERLESS:
+    # Vercel's filesystem is read-only outside /tmp — file logging would
+    # crash the import on every cold start. stdout above already reaches
+    # Vercel's log capture (`vercel logs`), so there's nothing to replace it with.
+    logger.add("logs/salon_saas_{time:YYYY-MM-DD}.log", rotation="1 day", retention="30 days", level="DEBUG")
 
 
 @asynccontextmanager

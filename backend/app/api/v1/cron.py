@@ -23,27 +23,21 @@ async def run_scheduled_jobs(authorization: str | None = Header(default=None)):
     """
     Single entrypoint for all time-based jobs that used to run via an
     in-process APScheduler. There's no long-running process on Vercel to
-    host that scheduler, so Vercel Cron hits this every 30 minutes instead
-    (see vercel.json) and each job decides here whether it's actually due.
+    host that scheduler, so Vercel Cron hits this once a day instead (see
+    vercel.json) — Hobby-plan accounts can't schedule cron more often than
+    daily, so all jobs run together in this one pass rather than each at
+    their original separate time. Bump the schedule in vercel.json (and
+    split this back into time-gated jobs) if you're on Pro and want the
+    original cadence, especially for notification retries.
     """
     _check_cron_secret(authorization)
 
     now = datetime.now(timezone.utc)
-    ran = []
 
-    if now.hour == 8 and now.minute < 30:
-        await send_appointment_reminders()
-        ran.append("appointment_reminders")
-
-    if now.hour == 9 and now.minute < 30:
-        await send_birthday_wishes()
-        ran.append("birthday_wishes")
-
-    if now.hour == 0 and now.minute < 30:
-        await expire_memberships()
-        ran.append("expire_memberships")
-
+    await send_appointment_reminders()
+    await send_birthday_wishes()
+    await expire_memberships()
     await pending_notifications_retry()
-    ran.append("retry_notifications")
 
+    ran = ["appointment_reminders", "birthday_wishes", "expire_memberships", "retry_notifications"]
     return {"ran": ran, "at": now.isoformat()}
