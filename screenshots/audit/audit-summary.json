@@ -1,0 +1,237 @@
+{
+  "log": [
+    "\n=== LOGIN PAGE ===",
+    "  Login form: email=true, password=true, submit=true",
+    "  After login → URL: http://localhost:3000/login",
+    "  Still on login — trying alternate credentials",
+    "\n=== DASHBOARD ===",
+    "  Stat cards found: 8",
+    "  SVG chart elements: 43",
+    "  Refresh button: clicked ✓",
+    "\n=== APPOINTMENTS ===",
+    "  DataGrid visible: false",
+    "  Calendar View button: false",
+    "\n=== CUSTOMERS ===",
+    "  DataGrid visible: false",
+    "\n=== STAFF ===",
+    "  DataGrid visible: false",
+    "  Add Staff button: false",
+    "\n=== SERVICES ===",
+    "\n=== INVENTORY ===",
+    "  Products DataGrid: false",
+    "\n=== BILLING / POS ===",
+    "\n=== CHECK-IN ===",
+    "\n=== MARKETING ===",
+    "  Campaigns DataGrid: false",
+    "\n=== REPORTS ===",
+    "  Revenue DataGrid: false",
+    "\n=== SETTINGS ===",
+    "  Settings tabs found: 4",
+    "  Settings tab [Profile]: clicked ✓",
+    "  ⚠ Alert on settings-tab-1: Preview: $1,250 · Date: Jan 5, 2026",
+    "  Settings tab [Salon]: clicked ✓",
+    "  Settings tab [Notifications]: clicked ✓",
+    "  Settings tab [Security]: clicked ✓",
+    "\n=== CALENDAR ===",
+    "\n=== SIDEBAR NAVIGATION ===",
+    "  Sidebar nav links: 0",
+    "\n=== CONSOLE ERRORS SUMMARY ===",
+    "  Total console errors: 45",
+    "  [http://localhost:3000/dashboard] Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "  [http://localhost:3000/dashboard] Failed to load resource: the server responded with a status of 401 (Unauthorized)",
+    "  [http://localhost:3000/marketing] theme.alpha is not a function",
+    "\n=== AUDIT COMPLETE ===",
+    "Total alerts/issues: 1",
+    "  settings-tab-1: [\"Preview: $1,250 · Date: Jan 5, 2026\"]"
+  ],
+  "errors": [
+    {
+      "context": "settings-tab-1",
+      "alerts": [
+        "Preview: $1,250 · Date: Jan 5, 2026"
+      ]
+    }
+  ],
+  "consoleErrors": [
+    {
+      "url": "http://localhost:3000/login",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/login",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/login",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/appointments",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/appointments",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/appointments",
+      "text": "theme.alpha is not a function"
+    },
+    {
+      "url": "http://localhost:3000/customers",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/customers",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/customers",
+      "text": "theme.alpha is not a function"
+    },
+    {
+      "url": "http://localhost:3000/staff",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/staff",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/staff",
+      "text": "theme.alpha is not a function"
+    },
+    {
+      "url": "http://localhost:3000/services",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/services",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/services",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/services",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/inventory",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/inventory",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/billing",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/billing",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/billing",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/checkin",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/checkin",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/checkin",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/checkin",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/marketing",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/marketing",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/marketing",
+      "text": "theme.alpha is not a function"
+    },
+    {
+      "url": "http://localhost:3000/reports",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/reports",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/settings",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/settings",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/calendar",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/calendar",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/calendar",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/calendar",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    },
+    {
+      "url": "http://localhost:3000/dashboard",
+      "text": "Failed to load resource: the server responded with a status of 401 (Unauthorized)"
+    }
+  ]
+}

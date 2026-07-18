@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($env:PGPASSWORD = \"admin@123\"; & \"C:\\\\Program Files\\\\PostgreSQL\\\\18\\\\bin\\\\psql.exe\" -U postgres -d salon_saas -c \"\\\\dt\" 2>&1)",
+      "PowerShell(Get-Process -Name python -ErrorAction SilentlyContinue)"
+    ]
+  }
+}

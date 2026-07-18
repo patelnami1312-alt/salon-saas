@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload)",
+      "Bash(curl -s http://localhost:8000/health)",
+      "PowerShell(Set-Location \"e:\\\\salon-saas\\\\backend\"; Start-Process -FilePath \"python\" -ArgumentList \"-m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload\" -WindowStyle Hidden; Start-Sleep 5; try { $r = Invoke-RestMethod \"http://localhost:8000/health\"; Write-Host \"Backend OK: $\\($r.status\\)\" } catch { Write-Host \"Backend not ready yet\" })",
+      "PowerShell($token = \\(Invoke-RestMethod \"http://localhost:8000/api/v1/auth/login\" -Method POST -ContentType \"application/json\" -Body '{\"email\":\"admin@salonsaas.com\",\"password\":\"Admin@12345\"}'\\).access_token; $headers = @{Authorization=\"Bearer $token\"}; $r = Invoke-RestMethod \"http://localhost:8000/api/v1/customers\" -Headers $headers; Write-Host \"Customers total: $\\($r.total\\)\")",
+      "PowerShell($token = \\(Invoke-RestMethod \"http://localhost:8000/api/v1/auth/login\" -Method POST -ContentType \"application/json\" -Body '{\"email\":\"admin@salonsaas.com\",\"password\":\"Admin@12345\"}'\\).access_token; $headers = @{Authorization=\"Bearer $token\"}; try { $r = Invoke-RestMethod \"http://localhost:8000/api/v1/customers\" -Headers $headers; Write-Host \"OK: total=$\\($r.total\\)\" } catch { Write-Host \"Error: $_\" })",
+      "Bash(curl -s -X POST http://localhost:8000/api/v1/auth/login -H \"Content-Type: application/json\" -d '{\"email\":\"admin@salonsaas.com\",\"password\":\"Admin@12345\"}')",
+      "PowerShell(Get-Process python)",
+      "PowerShell(Stop-Process -Force 2>$null)",
+      "PowerShell(Set-Location \"e:\\\\salon-saas\\\\backend\"; $p = Start-Process -FilePath \"python\" -ArgumentList \"-m uvicorn app.main:app --host 0.0.0.0 --port 8000\" -WindowStyle Hidden -PassThru; Write-Host \"PID: $\\($p.Id\\)\"; Start-Sleep 6; try { $r = Invoke-RestMethod \"http://localhost:8000/health\"; Write-Host \"Status: $\\($r.status\\)\" } catch { Write-Host \"Not ready\" })",
+      "PowerShell(Start-Sleep 5; try { $r = Invoke-RestMethod \"http://localhost:8000/health\"; Write-Host \"Status: $\\($r.status\\)\" } catch { Write-Host \"Still not ready: $_\" })",
+      "PowerShell($login = Invoke-RestMethod \"http://localhost:8000/api/v1/auth/login\" -Method POST -ContentType \"application/json\" -Body '{\"email\":\"admin@salonsaas.com\",\"password\":\"Admin@12345\"}'; $token = $login.access_token; $headers = @{Authorization=\"Bearer $token\"}; $customers = Invoke-RestMethod \"http://localhost:8000/api/v1/customers\" -Headers $headers; Write-Host \"Customers total: $\\($customers.total\\)\"; $appointments = Invoke-RestMethod \"http://localhost:8000/api/v1/appointments\" -Headers $headers; Write-Host \"Appointments total: $\\($appointments.total\\)\")",
+      "Bash(cat \"C:/Users/Deep/.claude/settings.json\" 2>/dev/null || echo \"not found\")",
+      "Read(//c/Users/Deep/.claude/**)",
+      "PowerShell(netstat -ano | Select-String \"LISTEN\" | Where-Object { $_ -match \"127\\\\.0\\\\.0\\\\.1:\\(3\\\\d{3}|4\\\\d{3}|9\\\\d{3}\\)\" } | Select-Object -First 15)",
+      "PowerShell(Start-Process \"chrome.exe\" -ArgumentList \"--remote-debugging-port=9222\", \"--user-data-dir=C:\\\\ChromeDebug\" -ErrorAction SilentlyContinue)",
+      "Bash(curl -s http://localhost:9222/json/version)",
+      "Bash(node pw-live.mjs)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(d['version']\\)\")",
+      "PowerShell(npm info @mui/x-data-grid@8 peerDependencies 2>&1)",
+      "PowerShell(Get-Process -Name \"node\" -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle -eq \"\" } | ForEach-Object { $_.Id })",
+      "PowerShell(Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue)",
+      "PowerShell(Receive-Job -Id 1 -ErrorAction SilentlyContinue 2>&1)",
+      "PowerShell(cd e:\\\\salon-saas\\\\frontend && npx vite --port 3000 2>&1 &)",
+      "PowerShell(Receive-Job -Id 1 2>&1)"
+    ]
+  }
+}
